@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<!-- template utilizado:
+  https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_black&stacked=h
+  -->
+  
+<head>
+  <title>SeuBanco! por Fabio Spina</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="theme-green.css">
+  
+  <link rel="stylesheet" href="font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+<body onload="startTimer(300, document.querySelector('#Timer'))">
+
+  <!-- Side Navigation -->
+  <nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
+    <h1 class="w3-xxxlarge w3-text-theme">Menu de Navegação</h1>
+    <button class="w3-bar-item w3-button" onclick="w3_close()">Fechar esse menu <i class="fa fa-remove"></i></button>
+<a href="pessoa.html" class="w3-bar-item w3-button">Informações Pessoais</a>
+    <a href="extrato.html" class="w3-bar-item w3-button">Extrato</a>
+    <a href="emprestimo.html" class="w3-bar-item w3-button">Empréstimo</a>
+    <a href="pagamentos.html" class="w3-bar-item w3-button">Pagamentos</a>
+        <a href="index.html" class="w3-bar-item w3-button" >Encerrar / Sair</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="w3-container w3-theme w3-padding" id="myHeader">
+    <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-button w3-theme"></i>
+    <div> Por segurança, essa seção se encerrará em <span class="Timer" id="Timer"> tempo</span> segundos.</div>
+    <div class="w3-center">
+      <h1 class="w3-xxxlarge w3-animate-bottom">Bem vindo ao SeuBanco!</h1>
+
+    </div>
+  </header>
+
+    
+  <div class="w3-row-padding w3-center w3-margin-top">
+        <div class="w3-third">
+              <div class="w3-card w3-container" style="min-height:460px">
+          <h3>Seu Saldo</h3><br>
+          <!-- <i class="fa fa-desktop w3-margin-bottom w3-text-theme" style="font-size:120px"></i> -->
+                <img  src="pictures/cash-in-hand.png">
+          <p id="saldo"  onclick="MostraSaldo()">Exibir Saldo </p>
+         
+        </div>
+    </div>
+
+    <div class="w3-third">
+        <div class="w3-card w3-container" style="min-height:460px">
+
+          <h3 >Pagamentos recentes</h3><br>
+          <img  src="pictures/withdrawal-limit.png">
+          
+          <p class="w3-small">02/11 Pgt 1 R$ 235,02</p>
+          <p p class="w3-small">01/11 Pgt 2 R$ 984,22</p>
+          <p p class="w3-small">30/10 Pgt 3 R$ 34,04</p>
+        
+      </div>
+    </div>
+
+    <div class="w3-third">
+
+      <div class="w3-card w3-container" style="min-height:460px">
+        <div class="w3-padding w3-white w3-display-container">
+
+          <h3>Empréstimos</h3><br>
+          <img  src="pictures/cash-in-hand.png">
+          
+          <p id="emprestimo" onclick="AtualizaEmprestimo()">Exibir Saldo</p>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!-- Footer -->
+  <footer class="w3-container w3-theme-dark w3-padding-16">
+    <h3>SeuBanco! te acompanha onde estiver.</h3>
+    <p>Desenvolvido por Fabio Spina </p>
+    <div style="position:relative;bottom:55px;" class="w3-tooltip w3-right">
+      <span class="w3-text w3-theme-light w3-padding">Go To Top</span> 
+      <a class="w3-text-white" href="#myHeader"><span class="w3-xlarge">
+          <i class="fa fa-chevron-circle-up"></i></span></a>
+    </div>
+
+  </footer>
+
+  <!-- Script for Sidebar, Tabs, Accordions, Progress bars and slideshows -->
+  <script>
+    // Side navigation
+    function w3_open() {
+      var x = document.getElementById("mySidebar");
+      x.style.width = "100%";
+      x.style.fontSize = "40px";
+      x.style.paddingTop = "10%";
+      x.style.display = "block";
+    }
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+
+    // Tabs
+    function openCity(evt, cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      var activebtn = document.getElementsByClassName("testbtn");
+      for (i = 0; i < x.length; i++) {
+        activebtn[i].className = activebtn[i].className.replace(" w3-dark-grey", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " w3-dark-grey";
+    }
+
+    var mybtn = document.getElementsByClassName("testbtn")[0];
+    mybtn.click();
+
+    // Accordions
+    function myAccFunc(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
+      }
+    }
+
+    // Slideshows
+    var slideIndex = 1;
+
+    function plusDivs(n) {
+      slideIndex = slideIndex + n;
+      showDivs(slideIndex);
+    }
+
+    function showDivs(n) {
+      var x = document.getElementsByClassName("mySlides");
+      if (n > x.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = x.length};
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      x[slideIndex - 1].style.display = "block";
+    }
+
+    showDivs(1);
+
+    // Progress Bars
+    function move() {
+      var elem = document.getElementById("myBar");
+      var width = 5;
+      var id = setInterval(frame, 10);
+      function frame() {
+        if (width == 100) {
+          clearInterval(id);
+        } else {
+          width++;
+          elem.style.width = width + '%';
+          elem.innerHTML = width * 1 + '%';
+        }
+      }
+    }
+
+    function MostraSaldo(){
+      console.log(document.getElementById("saldo").innerHTML)
+      if (document.getElementById("saldo").innerHTML =="Exibir Saldo"){
+      document.getElementById("saldo").innerHTML = "R$ 2.342,90";
+        } else {
+        document.getElementById("saldo").innerHTML = "Exibir Saldo";
+        }
+    }
+
+      function AtualizaEmprestimo(){
+        console.log(document.getElementById("emprestimo").innerHTML)
+if (document.getElementById("emprestimo").innerHTML == "Exibir Saldo") {      document.getElementById("emprestimo").innerHTML = "Saldo Disponível: R$ 15.000,00";
+    } else { document.getElementById("emprestimo").innerHTML = "Exibir Saldo"}
+      }
+
+
+    
+
+
+function startTimer(duration, display) {
+  var timer = duration, minutes, seconds;
+  setInterval(function() {
+    minutes = '02';
+    seconds = parseInt(timer % 60, 10);
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    display.textContent = minutes + ":" + seconds;
+    if (--timer < 0) {
+      timer = 0;
+      alert("Tempo acabou :(   Clique OK para começar de novo...")
+      location.reload();
+
+    }
+  }, 1000);
+}
+  </script>
+
+</body>
+
+</html>
